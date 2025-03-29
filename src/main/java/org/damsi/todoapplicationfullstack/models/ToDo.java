@@ -1,4 +1,4 @@
-package org.damsi.todoapplicationfullstack.model;
+package org.damsi.todoapplicationfullstack.models;
 
 import jakarta.persistence.*;
 
@@ -11,6 +11,7 @@ public class ToDo {
 
     private String title;
 
+    @Column(length = 1000)
     private String description;
 
     private boolean completed;
@@ -19,8 +20,8 @@ public class ToDo {
 
     public ToDo(String title, String description, boolean completed){
         this.title = title;
-        this.completed = completed;
         this.description = description;
+        this.completed = completed;
     }
 
     public Long getId() {

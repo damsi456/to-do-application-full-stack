@@ -1,7 +1,7 @@
-package org.damsi.todoapplicationfullstack.controller;
+package org.damsi.todoapplicationfullstack.controllers;
 
-import org.damsi.todoapplicationfullstack.model.ToDo;
-import org.damsi.todoapplicationfullstack.service.ToDoService;
+import org.damsi.todoapplicationfullstack.models.ToDo;
+import org.damsi.todoapplicationfullstack.services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

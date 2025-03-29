@@ -1,7 +1,7 @@
-package org.damsi.todoapplicationfullstack.service;
+package org.damsi.todoapplicationfullstack.services;
 
-import org.damsi.todoapplicationfullstack.model.ToDo;
-import org.damsi.todoapplicationfullstack.repository.ToDoRepository;
+import org.damsi.todoapplicationfullstack.models.ToDo;
+import org.damsi.todoapplicationfullstack.repositories.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +31,7 @@ public class ToDoService {
             ToDo toDo = optionalToDo.get();
             toDo.setTitle(newTodo.getTitle());
             toDo.setCompleted(newTodo.isCompleted());
+            toDo.setDescription(newTodo.getDescription());
             return toDoRepository.save(toDo);
         } else {
             return null;
