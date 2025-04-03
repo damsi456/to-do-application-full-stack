@@ -16,6 +16,10 @@ public class ToDo {
 
     private boolean completed;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     public ToDo(){};
 
     public ToDo(String title, String description, boolean completed){
