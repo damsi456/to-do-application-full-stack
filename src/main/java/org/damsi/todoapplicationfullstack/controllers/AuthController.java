@@ -3,7 +3,6 @@ package org.damsi.todoapplicationfullstack.controllers;
 import org.damsi.todoapplicationfullstack.dtos.AuthRequest;
 import org.damsi.todoapplicationfullstack.dtos.AuthResponse;
 import org.damsi.todoapplicationfullstack.services.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")

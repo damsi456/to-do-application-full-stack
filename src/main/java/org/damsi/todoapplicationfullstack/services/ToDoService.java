@@ -4,7 +4,6 @@ import org.damsi.todoapplicationfullstack.models.ToDo;
 import org.damsi.todoapplicationfullstack.models.User;
 import org.damsi.todoapplicationfullstack.repositories.ToDoRepository;
 import org.damsi.todoapplicationfullstack.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
