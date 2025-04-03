@@ -2,37 +2,33 @@ package org.damsi.todoapplicationfullstack.controllers;
 
 import org.damsi.todoapplicationfullstack.models.ToDo;
 import org.damsi.todoapplicationfullstack.services.ToDoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/todos")
 public class ToDoController {
-    @Autowired
-    private ToDoService toDoService;
+    private final ToDoService toDoService;
 
-    @GetMapping
-    public List<ToDo> getAllToDos(){
-        return toDoService.getAllToDos();
+    public ToDoController(ToDoService toDoService){
+        this.toDoService = toDoService;
     }
 
-    @GetMapping("/{id}")
-    public Optional<ToDo> getToDoById(@PathVariable Long id){
-        return toDoService.getToDoById(id);
+    @GetMapping
+    public List<ToDo> getUserToDos(){
+        return toDoService.getUserToDos();
     }
 
     @PostMapping
-    public ToDo createToDo(@RequestBody ToDo toDo){
-        return toDoService.createToDo(toDo);
+    public void createToDo(@RequestBody ToDo toDo){
+        toDoService.createToDo(toDo);
     }
 
     @PutMapping("/{id}")
-    public ToDo updateToDo(@PathVariable Long id, @RequestBody ToDo toDo){
-        return toDoService.updateToDo(id, toDo);
+    public void updateToDo(@PathVariable Long id, @RequestBody ToDo toDo){
+        toDoService.updateToDo(id, toDo);
     }
 
     @DeleteMapping("/{id}")

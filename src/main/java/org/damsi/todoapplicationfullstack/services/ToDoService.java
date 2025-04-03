@@ -1,8 +1,12 @@
 package org.damsi.todoapplicationfullstack.services;
 
 import org.damsi.todoapplicationfullstack.models.ToDo;
+import org.damsi.todoapplicationfullstack.models.User;
 import org.damsi.todoapplicationfullstack.repositories.ToDoRepository;
+import org.damsi.todoapplicationfullstack.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,31 +14,42 @@ import java.util.Optional;
 
 @Service
 public class ToDoService {
-    @Autowired
-    private ToDoRepository toDoRepository;
+    private final ToDoRepository toDoRepository;
+    private final UserRepository userRepository;
 
-    public List<ToDo> getAllToDos(){
-        return toDoRepository.findAll();
+    public ToDoService(ToDoRepository toDoRepository, UserRepository userRepository){
+        this.toDoRepository = toDoRepository;
+        this.userRepository = userRepository;
     }
 
-    public Optional<ToDo> getToDoById(Long id){
-        return toDoRepository.findById(id);
+    // Get the current user
+    private User getAutheticatedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public ToDo createToDo(ToDo toDo){
-        return toDoRepository.save(toDo);
+    public void createToDo(ToDo toDo){
+        User user = getAutheticatedUser();
+        toDo.setUser(user);
+        toDoRepository.save(toDo);
     }
 
-    public ToDo updateToDo(Long id, ToDo newTodo) {
+    public List<ToDo> getUserToDos(){
+        User user = getAutheticatedUser();
+        return toDoRepository.findByUserId(user.getId());
+    }
+
+    public void updateToDo(Long id, ToDo newTodo){
         Optional<ToDo> optionalToDo = toDoRepository.findById(id);
-        if(optionalToDo.isPresent()){
+        if (optionalToDo.isPresent()){
             ToDo toDo = optionalToDo.get();
+            User user = getAutheticatedUser();
             toDo.setTitle(newTodo.getTitle());
-            toDo.setCompleted(newTodo.isCompleted());
             toDo.setDescription(newTodo.getDescription());
-            return toDoRepository.save(toDo);
-        } else {
-            return null;
+            toDo.setCompleted(newTodo.isCompleted());
+            toDo.setUser(user);
+            toDoRepository.save(toDo);
         }
     }
 

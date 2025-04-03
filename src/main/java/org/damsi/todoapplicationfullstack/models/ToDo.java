@@ -55,4 +55,8 @@ public class ToDo {
     public void setCompleted(boolean completed){
         this.completed = completed;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

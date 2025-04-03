@@ -5,7 +5,6 @@ import org.damsi.todoapplicationfullstack.dtos.AuthResponse;
 import org.damsi.todoapplicationfullstack.models.User;
 import org.damsi.todoapplicationfullstack.repositories.UserRepository;
 import org.damsi.todoapplicationfullstack.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,17 @@ import java.util.Optional;
 
 @Service
 public class AuthService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthService(UserRepository userRepository, JwtUtil jwtUtil, PasswordEncoder passwordEncoder){
+        this.userRepository = userRepository;
+        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public AuthResponse register (AuthRequest request){
         // Check if username exists
