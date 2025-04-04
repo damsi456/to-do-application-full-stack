@@ -27,12 +27,12 @@ public class AuthService {
     public AuthResponse register (AuthRequest request){
         // Check if username exists
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new RuntimeException("Username is already taken.");
+            throw new IllegalArgumentException("Username is already taken.");
         }
 
         // Check if email exists
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Email is already in use.");
+            throw new IllegalArgumentException("Email is already in use.");
         }
 
         // Encrypt password
@@ -51,6 +51,6 @@ public class AuthService {
         if (user.isPresent() && passwordEncoder.matches(request.getPassword(), user.get().getPassword())){
             return new AuthResponse(jwtUtil.generateToken(user.get().getUsername()));
         }
-        throw new RuntimeException("Invalid username or password.");
+        throw new IllegalArgumentException("Invalid username or password.");
     }
 }

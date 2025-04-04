@@ -5,7 +5,6 @@ import org.damsi.todoapplicationfullstack.dtos.AuthResponse;
 import org.damsi.todoapplicationfullstack.services.AuthService;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
