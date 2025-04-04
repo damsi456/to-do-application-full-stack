@@ -46,7 +46,28 @@ function Todos() {
             console.error("Error happened while adding a task: " + error);
             alert("Failed to add task.");
         }
-    }
+    };
+
+    const updateTodoStatus = async (id, completed) => {
+        try{
+            const token = localStorage.getItem("token");
+            const todoToUpdate = todos.find(todo => todo.id === id);
+
+            await axios.put(`http://localhost:8080/api/todos/${id}`,
+                {
+                    title: todoToUpdate.title,
+                    description: todoToUpdate.description,
+                    completed: completed
+                },
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                }
+            );
+            fetchTodos();
+        } catch (error) {
+            alert("Failed to update the task status.");
+        }
+    };
 
     const deleteTodo = async (id) => {
         try{
@@ -71,6 +92,7 @@ function Todos() {
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
+                        <input type="checkbox" checked={todo.completed} onChange={(e) => updateTodoStatus(todo.id, e.target.checked)}/>
                         <h3>{todo.title}</h3>
                         {todo.description && <p>{todo.description}</p>}
                         <button onClick={() => deleteTodo(todo.id)}>Delete</button>
