@@ -37,7 +37,7 @@ function Register(){
                 <button type="submit">Register</button>
             </form>
             <div className="auth-links">
-                <p>Already have an account? <Link to={"/login"}></Link></p>
+                <p>Already have an account? <Link to={"/login"}>Log In</Link></p>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/Todos.css";
 
 function Todos() {
     const [todos, setTodos] = useState([]);
@@ -81,9 +82,17 @@ function Todos() {
         }
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    }
+
     return(
-        <div>
-            <h2>To-Do List</h2>
+        <div className="todos-container">
+            <div className="todos-header">
+                <h2>To-Do List</h2>
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            </div>
             <form onSubmit={addTodo}>
                 <input type="text" placeholder="Enter Task" value={title} onChange={e => setTitle(e.target.value)} required/>
                 <textarea placeholder="Enter Description (optional)" value={description} onChange={e => setDescription(e.target.value)} />
