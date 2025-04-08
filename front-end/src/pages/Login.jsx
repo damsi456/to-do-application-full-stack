@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Auth.css";
 
 function Login(){
@@ -29,7 +29,7 @@ function Login(){
 
     return (
         <div className="auth-container">
-            <h2>Welcom Back!</h2>
+            <h2>Welcome Back!</h2>
             <form className="auth-form" onSubmit={handleLogin}>
                 <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required/>
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>

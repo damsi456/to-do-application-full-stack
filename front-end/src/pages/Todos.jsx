@@ -93,20 +93,39 @@ function Todos() {
                 <h2>To-Do List</h2>
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
-            <form onSubmit={addTodo}>
+            <form className="todo-form" onSubmit={addTodo}>
                 <input type="text" placeholder="Enter Task" value={title} onChange={e => setTitle(e.target.value)} required/>
                 <textarea placeholder="Enter Description (optional)" value={description} onChange={e => setDescription(e.target.value)} />
-                <button type="submit">Add</button>
+                <div className="submit-row">
+                    <button type="submit">Add</button>
+                </div>
             </form>
-            <ul>
-                {todos.map(todo => (
-                    <li key={todo.id}>
-                        <input type="checkbox" checked={todo.completed} onChange={(e) => updateTodoStatus(todo.id, e.target.checked)}/>
-                        <h3>{todo.title}</h3>
-                        {todo.description && <p>{todo.description}</p>}
-                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <ul className="todos-list">
+                {todos.length === 0 ? (
+                    <p>No tasks yet. Let's add your first task to be done!</p>
+                ): (
+                    todos.map(todo => (
+                        <li key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+                        <input 
+                            type="checkbox" 
+                            className="todo-checkbox"
+                            checked={todo.completed} 
+                            onChange={(e) => updateTodoStatus(todo.id, e.target.checked)}
+                        />
+                        <div className={`todo-content ${todo.completed ? 'completed' : ''}`}>
+                            <h3>{todo.title}</h3>
+                            {todo.description && <p>{todo.description}</p>}
+                        </div>
+                        <div className="todo-actions">
+                            <button 
+                                className="delete-btn" 
+                                onClick={() => deleteTodo(todo.id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </li>        
-                ))}
+                )))}
             </ul>
         </div>
     )
