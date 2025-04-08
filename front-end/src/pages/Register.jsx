@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/Auth.css"
 
 function Register(){
     const [fullName, setFullName] = useState("");
@@ -26,15 +27,18 @@ function Register(){
     };
 
     return(
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleRegister}>
+        <div className="auth-container">
+            <h2>Create Account</h2>
+            <form className="auth-form" onSubmit={handleRegister}>
                 <input type="text" placeholder="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
                 <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required/>
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <button type="submit">Register</button>
             </form>
+            <div className="auth-links">
+                <p>Already have an account? <Link to={"/login"}></Link></p>
+            </div>
         </div>
     )
 };

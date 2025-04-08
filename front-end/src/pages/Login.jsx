@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/Auth.css";
 
 function Login(){
     const [username, setUsername] = useState("");
@@ -27,13 +28,16 @@ function Login(){
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+        <div className="auth-container">
+            <h2>Welcom Back!</h2>
+            <form className="auth-form" onSubmit={handleLogin}>
                 <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required/>
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button type="submit">Login</button>
+                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                <button type="submit">Log In</button>
             </form>
+            <div className="auth-links">
+                <p>Don't have an account? <Link to="/register">Register</Link></p>
+            </div>
         </div>
     );
 };
